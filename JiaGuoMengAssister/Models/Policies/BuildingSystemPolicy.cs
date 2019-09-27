@@ -1,11 +1,12 @@
-﻿using JiaGuoMengAssister.Models.Buildings;
+﻿using JiaGuoMengAssister.Enums;
+using JiaGuoMengAssister.Models.Buildings;
 
 namespace JiaGuoMengAssister.Models.Policies
 {
     /// <summary>
-    /// 建筑政策
+    /// 建筑物体系政策
     /// </summary>
-    public class BuildingPolicy : PolicyBase
+    public class BuildingSystemPolicy : PolicyBase
     {
         /// <summary>
         /// 来源建筑物
@@ -13,8 +14,8 @@ namespace JiaGuoMengAssister.Models.Policies
         public Building SourceBuilding { get; set; }
 
         /// <summary>
-        /// 目标建筑物
+        /// 体系
         /// </summary>
-        public Building TargetBuilding { get; set; }
+        public SystemTypes System { get; set; }
     }
 }

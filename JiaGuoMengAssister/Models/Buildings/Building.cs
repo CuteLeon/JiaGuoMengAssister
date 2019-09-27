@@ -1,6 +1,6 @@
 ﻿using JiaGuoMengAssister.Enums;
 
-namespace JiaGuoMengAssister.Models
+namespace JiaGuoMengAssister.Models.Buildings
 {
     /// <summary>
     /// 建筑物

@@ -1,6 +1,9 @@
-﻿namespace JiaGuoMengAssister.Models.Policies.PolicyContainers
+﻿using System.Collections.Generic;
+using JiaGuoMengAssister.Enums;
+
+namespace JiaGuoMengAssister.Models.Policies.PolicyContainers
 {
-    public interface ISystemPolicyContainer : IPolicyContainer
+    public interface ISystemPolicyContainer : IPolicyContainer, IDictionary<SystemTypes, SystemPolicy>
     {
     }
 }

@@ -1,4 +1,5 @@
 ﻿using JiaGuoMengAssister.Models;
+using JiaGuoMengAssister.Models.Buildings;
 using JiaGuoMengAssister.Models.Policies.PolicyContainers;
 
 namespace JiaGuoMengAssister
