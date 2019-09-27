@@ -26,6 +26,11 @@ namespace JiaGuoMengAssister.Models.Buildings
         public int Level { get; set; }
 
         /// <summary>
+        /// 星级
+        /// </summary>
+        public int Star { get; set; }
+
+        /// <summary>
         /// 稀缺程度
         /// </summary>
         public ScarcityDegrees Scarcity { get; set; }
