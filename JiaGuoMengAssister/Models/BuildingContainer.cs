@@ -2,7 +2,7 @@
 
 namespace JiaGuoMengAssister.Models
 {
-    public class BuilderContainer : List<Building>, IContainer
+    public class BuildingContainer : List<Building>, IBuildingContainer
     {
     }
 }
