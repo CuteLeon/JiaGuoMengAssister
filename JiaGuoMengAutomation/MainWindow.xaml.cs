@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace JiaGuoMengAutomation
@@ -13,10 +14,10 @@ namespace JiaGuoMengAutomation
     {
         #region API
         [DllImport("User32")]
-        public extern static void mouse_event(int dwFlags, int dx, int dy, int dwData, IntPtr dwExtraInfo);
+        public static extern void mouse_event(int dwFlags, int dx, int dy, int dwData, IntPtr dwExtraInfo);
 
         [DllImport("User32")]
-        public extern static void SetCursorPos(int x, int y);
+        public static extern void SetCursorPos(int x, int y);
 
         public struct POINT
         {
@@ -39,7 +40,7 @@ namespace JiaGuoMengAutomation
         #endregion
 
         #region 坐标
-        static List<Point> BuildingLocations = new List<Point>()
+        private static readonly List<Point> BuildingLocations = new List<Point>()
         {
             new Point(562, 296),
             new Point(562, 387),
@@ -53,8 +54,7 @@ namespace JiaGuoMengAutomation
             new Point(758, 297),
             new Point(758, 390),
         };
-
-        static List<Point> giftLocations = new List<Point>()
+        private static readonly List<Point> giftLocations = new List<Point>()
         {
             new Point(697, 628),
             new Point(752, 602),
@@ -62,7 +62,9 @@ namespace JiaGuoMengAutomation
         };
         #endregion
 
-        public static bool Switch { get; set; }
+        private long counter = 0;
+        private CancellationTokenSource source;
+        private CancellationToken token;
 
         public MainWindow()
         {
@@ -71,7 +73,7 @@ namespace JiaGuoMengAutomation
 
         private static void ClickBuildings()
         {
-            foreach (var building in BuildingLocations)
+            foreach (Point building in BuildingLocations)
             {
                 mouse_event((int)(MouseEventFlags.Move | MouseEventFlags.Absolute), (int)(building.X * 48), (int)(building.Y * 85), 0, IntPtr.Zero);
                 mouse_event((int)(MouseEventFlags.LeftDown | MouseEventFlags.LeftUp | MouseEventFlags.Absolute), 0, 0, 0, IntPtr.Zero);
@@ -82,9 +84,9 @@ namespace JiaGuoMengAutomation
         private static void ClickGifts()
         {
             const int time = 100;
-            foreach (var gift in giftLocations)
+            foreach (Point gift in giftLocations)
             {
-                foreach (var building in BuildingLocations)
+                foreach (Point building in BuildingLocations)
                 {
                     for (int index = 0; index < 3; index++)
                     {
@@ -101,8 +103,36 @@ namespace JiaGuoMengAutomation
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            ClickBuildings();
-            ClickGifts();
+            this.source = new CancellationTokenSource();
+            this.token = this.source.Token;
+            Task.Factory.StartNew(new Action(this.TaskAction), this.token);
+        }
+
+        private void Print(string message)
+        {
+            this.Dispatcher.Invoke(() => this.MainButton.Content = message);
+        }
+
+        private void TaskAction()
+        {
+            while (true)
+            {
+                this.counter++;
+                this.Print($"Counter = {this.counter}");
+
+                ClickBuildings();
+                ClickGifts();
+
+                if (this.token.IsCancellationRequested)
+                {
+                    break;
+                }
+
+                this.Print($"正在等待 ...");
+                Thread.Sleep(15000);
+            }
+
+            this.Print($"中断任务");
         }
     }
 }

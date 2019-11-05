@@ -9,6 +9,6 @@
         WindowStyle="ToolWindow"
         Title="家国梦护肝助手" Height="160" Width="200">
     <Grid>
-        <Button IsDefault="True" Content="收集" Click="Button_Click"></Button>
+        <Button x:Name="MainButton" IsDefault="True" Content="收集" Click="Button_Click"></Button>
     </Grid>
 </Window>
