@@ -91,6 +91,7 @@ namespace JiaGuoMengAutomation
                     for (int index = 0; index < 3; index++)
                     {
                         mouse_event((int)(MouseEventFlags.Move | MouseEventFlags.Absolute), (int)(gift.X * 48), (int)(gift.Y * 85), 0, IntPtr.Zero);
+                        Thread.Sleep(time);
                         mouse_event((int)(MouseEventFlags.LeftDown | MouseEventFlags.Absolute), 0, 0, 0, IntPtr.Zero);
                         Thread.Sleep(time);
                         mouse_event((int)(MouseEventFlags.Move | MouseEventFlags.Absolute), (int)(building.X * 48), (int)(building.Y * 85), 0, IntPtr.Zero);
@@ -129,7 +130,7 @@ namespace JiaGuoMengAutomation
                 }
 
                 this.Print($"正在等待 ...");
-                Thread.Sleep(15000);
+                Thread.Sleep(10000);
             }
 
             this.Print($"中断任务");
