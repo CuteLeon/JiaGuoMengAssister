@@ -8,5 +8,7 @@ namespace JiaGuoMengAutomation
         public List<Point> BuildingsLocations { get; set; }
 
         public List<Point> GiftsLocations { get; set; }
+
+        public Point EmptyLocation { get; set; }
     }
 }

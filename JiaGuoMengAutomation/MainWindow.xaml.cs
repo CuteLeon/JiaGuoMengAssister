@@ -63,7 +63,7 @@ namespace JiaGuoMengAutomation
         {
             this.InitializeComponent();
 
-            this.automation = new MouseEventAutomation();
+            this.automation = new PostMessageAutomation();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
