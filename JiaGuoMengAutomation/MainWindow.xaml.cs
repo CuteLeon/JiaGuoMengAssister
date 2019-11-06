@@ -114,6 +114,13 @@ namespace JiaGuoMengAutomation
             }
         }
 
+        private static void ClickEmpty()
+        {
+            mouse_event((int)(MouseEventFlags.Move | MouseEventFlags.Absolute), (int)(663 * 48), (int)(100 * 85), 0, IntPtr.Zero);
+            mouse_event((int)(MouseEventFlags.LeftDown | MouseEventFlags.LeftUp | MouseEventFlags.Absolute), 0, 0, 0, IntPtr.Zero);
+            Thread.Sleep(20);
+        }
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             // TODO: 暂停功能
@@ -134,6 +141,7 @@ namespace JiaGuoMengAutomation
                 this.counter++;
                 this.Print($"Counter = {this.counter}");
 
+                ClickEmpty();
                 ClickBuildings();
                 ClickGifts();
 
