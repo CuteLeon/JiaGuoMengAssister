@@ -9,6 +9,12 @@ namespace JiaGuoMengAutomation
         [DllImport("user32", EntryPoint = "PostMessage", SetLastError = false, CharSet = CharSet.Auto, ExactSpelling = false, CallingConvention = CallingConvention.StdCall)]
         public static extern int PostMessage(IntPtr hWnd, int wMsg, int wParam, int lParam);
 
+        [DllImport("user32", EntryPoint = "FindWindow", SetLastError = false, CharSet = CharSet.Unicode, ExactSpelling = false, CallingConvention = CallingConvention.StdCall)]
+        public static extern int FindWindow(string lpClassName, string lpWindowName);
+
+        [DllImport("user32", EntryPoint = "FindWindowEx", SetLastError = false, CharSet = CharSet.Auto, ExactSpelling = false, CallingConvention = CallingConvention.StdCall)]
+        public static extern int FindWindowEx(int hWnd1, int hWnd2, string lpsz1, string lpsz2);
+
         public PostMessageAutomation()
         {
             this.TargetHandle = this.GetRenderWindowHandle();
@@ -19,8 +25,17 @@ namespace JiaGuoMengAutomation
 
         private IntPtr GetRenderWindowHandle()
         {
-            // TODO: 获取句柄
-            return IntPtr.Zero;
+            int handle = 0;
+            int renderHandle;
+
+            do
+            {
+                handle = FindWindowEx(0, handle, "TXGuiFoundation", null);
+                renderHandle = FindWindowEx(handle, 0, "AEngineRenderWindowClass", null);
+            }
+            while (handle != 0 && renderHandle == 0);
+
+            return new IntPtr(renderHandle);
         }
 
         public int GetLParam(int x, int y)
