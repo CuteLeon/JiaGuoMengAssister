@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Runtime.InteropServices;
+using System.Threading;
 
 namespace JiaGuoMengAutomation
 {
@@ -43,6 +44,34 @@ namespace JiaGuoMengAutomation
                 new Point(350, 535),
             };
             this.Locations.EmptyLocation = new Point(190, 75);
+        }
+
+        public override void DragGifts()
+        {
+            const int time = 100;
+            foreach (Point gift in this.Locations.GiftsLocations)
+            {
+                foreach (Point building in this.Locations.BuildingsLocations)
+                {
+                    // 及时退出
+                    if (this.Token.IsCancellationRequested)
+                    {
+                        return;
+                    }
+
+                    for (int index = 0; index < 4; index++)
+                    {
+                        this.MouseMove(gift.X, gift.Y);
+                        Thread.Sleep(time);
+                        this.MouseLeftDown(gift.X, gift.Y);
+                        Thread.Sleep(time);
+                        this.MouseMove(building.X, building.Y);
+                        Thread.Sleep(time);
+                        this.MouseLeftUp(building.X, building.Y);
+                        Thread.Sleep(time);
+                    }
+                }
+            }
         }
 
         private IntPtr GetRenderWindowHandle()

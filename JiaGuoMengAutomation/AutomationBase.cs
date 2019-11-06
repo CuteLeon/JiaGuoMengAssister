@@ -43,11 +43,11 @@ namespace JiaGuoMengAutomation
                     {
                         this.MouseMove(gift.X, gift.Y);
                         Thread.Sleep(time);
-                        this.MouseLeftDown(-1, -1);
+                        this.MouseLeftDown(gift.X, gift.Y);
                         Thread.Sleep(time);
                         this.MouseMove(building.X, building.Y);
                         Thread.Sleep(time);
-                        this.MouseLeftUp(-1, -1);
+                        this.MouseLeftUp(building.X, building.Y);
                         Thread.Sleep(time);
                     }
                 }

@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Runtime.InteropServices;
-using System.Threading;
 
 namespace JiaGuoMengAutomation
 {
-    internal class MouseEventAutomation : IAutomation
+    internal class MouseEventAutomation : AutomationBase
     {
         #region API
         [DllImport("User32")]
@@ -38,8 +37,9 @@ namespace JiaGuoMengAutomation
         [Obsolete]
         public MouseEventAutomation()
         {
-            this.Locations = new LocationCollection();
-            this.Locations.BuildingsLocations = new List<Point>()
+            this.Locations = new LocationCollection
+            {
+                BuildingsLocations = new List<Point>()
             {
                 new Point(562, 296),
                 new Point(562, 387),
@@ -52,83 +52,36 @@ namespace JiaGuoMengAutomation
                 new Point(758, 204),
                 new Point(758, 297),
                 new Point(758, 390),
-            };
-            this.Locations.GiftsLocations = new List<Point>()
+            },
+                GiftsLocations = new List<Point>()
             {
                 new Point(697, 628),
                 new Point(752, 602),
                 new Point(806, 572),
+            },
+                EmptyLocation = new Point(663, 100)
             };
         }
 
-        public CancellationToken Token { get; set; }
-
-        public IntPtr TargetHandle { get; set; }
-
-        public LocationCollection Locations { get; set; }
-
-        public void ClickBuildings()
-        {
-            foreach (Point building in this.Locations.BuildingsLocations)
-            {
-                this.MouseClick(building.X, building.Y);
-                Thread.Sleep(20);
-            }
-        }
-
-        public void ClickEmpty()
-        {
-            this.MouseClick(663, 100);
-            Thread.Sleep(20);
-        }
-
-        public void DragGifts()
-        {
-            const int time = 100;
-            foreach (Point gift in this.Locations.GiftsLocations)
-            {
-                foreach (Point building in this.Locations.BuildingsLocations)
-                {
-                    // 及时退出
-                    if (this.Token.IsCancellationRequested)
-                    {
-                        return;
-                    }
-
-                    for (int index = 0; index < 3; index++)
-                    {
-                        this.MouseMove(gift.X, gift.Y);
-                        Thread.Sleep(time);
-                        this.MouseLeftDown(-1, -1);
-                        Thread.Sleep(time);
-                        this.MouseMove(building.X, building.Y);
-                        Thread.Sleep(time);
-                        this.MouseLeftUp(-1, -1);
-                        Thread.Sleep(time);
-                    }
-                }
-            }
-        }
-
-        public void MouseClick(int x, int y)
+        public override void MouseClick(int x, int y)
         {
             this.MouseMove(x, y);
             mouse_event((int)(MouseEventFlags.LeftDown | MouseEventFlags.LeftUp | MouseEventFlags.Absolute), 0, 0, 0, IntPtr.Zero);
         }
 
-        public void MouseMove(int x, int y)
+        public override void MouseMove(int x, int y)
         {
             mouse_event((int)(MouseEventFlags.Move | MouseEventFlags.Absolute), x * 48, y * 85, 0, IntPtr.Zero);
         }
 
         [Obsolete("无法移动到指定坐标")]
-        public void MouseLeftDown(int x, int y)
+        public override void MouseLeftDown(int x, int y)
         {
             mouse_event((int)(MouseEventFlags.LeftDown | MouseEventFlags.Absolute), 0, 0, 0, IntPtr.Zero);
         }
 
         [Obsolete("无法移动到指定坐标")]
-        public void MouseLeftUp(int x, int y)
+        public override void MouseLeftUp(int x, int y)
         {
             mouse_event((int)(MouseEventFlags.LeftUp | MouseEventFlags.Absolute), 0, 0, 0, IntPtr.Zero);
         }
