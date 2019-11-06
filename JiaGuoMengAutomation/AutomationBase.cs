@@ -26,6 +26,9 @@ namespace JiaGuoMengAutomation
             this.MouseClick(this.Locations.EmptyLocation.X, this.Locations.EmptyLocation.Y);
         }
 
+        /// <summary>
+        /// 火车间隔约20S，火车停留约1:30s，自动执行约 45s
+        /// </summary>
         public virtual void DragGifts()
         {
             const int time = 100;

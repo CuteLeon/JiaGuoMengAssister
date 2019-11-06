@@ -5,9 +5,6 @@ using System.Windows;
 
 namespace JiaGuoMengAutomation
 {
-    // TODO: 测试 Debug附加调试器|Debug未附加调试器|Release 模式下能否自动收集供货
-    // TODO: 优化收集供货的效率
-
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>

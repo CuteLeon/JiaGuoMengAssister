@@ -21,7 +21,6 @@ namespace JiaGuoMengAutomation
         {
             this.TargetHandle = this.GetRenderWindowHandle();
 
-            // TODO: 获取坐标（取金币的中心坐标）
             this.Locations = new LocationCollection();
             this.Locations.BuildingsLocations = new List<Point>()
             {
