@@ -7,7 +7,6 @@ using System.Windows;
 
 namespace JiaGuoMengAutomation
 {
-    // TODO: 热键开关
     // TODO: 测试 Debug附加调试器|Debug未附加调试器|Release 模式下能否自动收集供货
     // TODO: 优化收集供货的效率
 
@@ -147,12 +146,13 @@ namespace JiaGuoMengAutomation
                         mouse_event((int)(MouseEventFlags.Move | MouseEventFlags.Absolute), (int)(building.X * 48), (int)(building.Y * 85), 0, IntPtr.Zero);
                         Thread.Sleep(time);
                         mouse_event((int)(MouseEventFlags.LeftUp | MouseEventFlags.Absolute), 0, 0, 0, IntPtr.Zero);
+                        Thread.Sleep(time);
                     }
                 }
             }
         }
 
-        private static void ClickEmpty()
+        private void ClickEmpty()
         {
             mouse_event((int)(MouseEventFlags.Move | MouseEventFlags.Absolute), 663 * 48, 100 * 85, 0, IntPtr.Zero);
             mouse_event((int)(MouseEventFlags.LeftDown | MouseEventFlags.LeftUp | MouseEventFlags.Absolute), 0, 0, 0, IntPtr.Zero);
@@ -194,7 +194,7 @@ namespace JiaGuoMengAutomation
             {
                 this.State = States.Execute;
 
-                ClickEmpty();
+                this.ClickEmpty();
                 this.ClickBuildings();
                 this.ClickGifts();
 
