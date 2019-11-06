@@ -37,6 +37,12 @@ namespace JiaGuoMengAutomation
                 new Point(290, 272),
                 new Point(290, 364),
             };
+            this.Locations.GiftsLocations = new List<Point>()
+            {
+                new Point(240, 590),
+                new Point(295, 565),
+                new Point(350, 535),
+            };
         }
 
         private IntPtr GetRenderWindowHandle()
