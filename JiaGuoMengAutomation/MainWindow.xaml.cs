@@ -159,7 +159,17 @@ namespace JiaGuoMengAutomation
             {
                 this.source = new CancellationTokenSource();
                 this.token = this.source.Token;
-                Task.Factory.StartNew(new Action(this.TaskAction), this.token);
+                Task.Factory.StartNew(new Action(() =>
+                {
+#if DEBUG
+                    this.TestAction();
+#else
+                    this.TaskAction();
+#endif
+
+                    this.State = States.Idle;
+                    this.source = null;
+                }), this.token);
             }
         }
 
@@ -186,9 +196,16 @@ namespace JiaGuoMengAutomation
                     break;
                 }
             }
+        }
 
-            this.State = States.Idle;
-            this.source = null;
+        private void TestAction()
+        {
+            const int time = 100;
+            mouse_event((int)(MouseEventFlags.LeftDown | MouseEventFlags.Absolute), 0, 0, 0, IntPtr.Zero);
+            Thread.Sleep(time);
+            mouse_event((int)(MouseEventFlags.Move), 600, 600, 0, IntPtr.Zero);
+            Thread.Sleep(time);
+            mouse_event((int)(MouseEventFlags.LeftUp | MouseEventFlags.Absolute), 0, 0, 0, IntPtr.Zero);
         }
     }
 }
