@@ -74,8 +74,36 @@ namespace JiaGuoMengAutomation
         private States state;
         private States State
         {
-            get => state;
-            set => state = value;
+            get => this.state;
+            set
+            {
+                if (this.state == value)
+                {
+                    return;
+                }
+
+                this.state = value;
+                switch (this.state)
+                {
+                    case States.Idle:
+                        {
+                            this.Print($"空闲");
+                            break;
+                        }
+                    case States.Execute:
+                        {
+                            this.Print($"开始 {++this.counter}");
+                            break;
+                        }
+                    case States.Wait:
+                        {
+                            this.Print($"正在等待 ...");
+                            break;
+                        }
+                    default:
+                        break;
+                }
+            }
         }
 
         public MainWindow()
@@ -116,17 +144,23 @@ namespace JiaGuoMengAutomation
 
         private static void ClickEmpty()
         {
-            mouse_event((int)(MouseEventFlags.Move | MouseEventFlags.Absolute), (int)(663 * 48), (int)(100 * 85), 0, IntPtr.Zero);
+            mouse_event((int)(MouseEventFlags.Move | MouseEventFlags.Absolute), 663 * 48, 100 * 85, 0, IntPtr.Zero);
             mouse_event((int)(MouseEventFlags.LeftDown | MouseEventFlags.LeftUp | MouseEventFlags.Absolute), 0, 0, 0, IntPtr.Zero);
             Thread.Sleep(20);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            // TODO: 暂停功能
-            this.source = new CancellationTokenSource();
-            this.token = this.source.Token;
-            Task.Factory.StartNew(new Action(this.TaskAction), this.token);
+            if (this.source != null)
+            {
+                this.source.Cancel();
+            }
+            else
+            {
+                this.source = new CancellationTokenSource();
+                this.token = this.source.Token;
+                Task.Factory.StartNew(new Action(this.TaskAction), this.token);
+            }
         }
 
         private void Print(string message)
@@ -138,23 +172,24 @@ namespace JiaGuoMengAutomation
         {
             while (true)
             {
-                this.counter++;
-                this.Print($"Counter = {this.counter}");
+                this.State = States.Execute;
 
-                ClickEmpty();
-                ClickBuildings();
-                ClickGifts();
+                //ClickEmpty();
+                //ClickBuildings();
+                //ClickGifts();
+                Thread.Sleep(3000);
+
+                this.State = States.Wait;
+                Thread.Sleep(3000);
 
                 if (this.token.IsCancellationRequested)
                 {
                     break;
                 }
-
-                this.Print($"正在等待 ...");
-                Thread.Sleep(10000);
             }
 
-            this.Print($"中断任务");
+            this.State = States.Idle;
+            this.source = null;
         }
     }
 }
