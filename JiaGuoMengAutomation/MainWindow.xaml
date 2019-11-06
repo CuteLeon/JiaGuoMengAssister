@@ -5,7 +5,6 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:JiaGuoMengAutomation"
         mc:Ignorable="d"
-        Topmost="True"
         WindowStyle="ToolWindow"
         Title="家国梦护肝助手" Height="160" Width="200">
     <Grid>
