@@ -65,6 +65,18 @@ namespace JiaGuoMengAutomation
         private long counter = 0;
         private CancellationTokenSource source;
         private CancellationToken token;
+        private enum States
+        {
+            Idle = 0,
+            Execute = 1,
+            Wait = 2,
+        }
+        private States state;
+        private States State
+        {
+            get => state;
+            set => state = value;
+        }
 
         public MainWindow()
         {
@@ -104,6 +116,7 @@ namespace JiaGuoMengAutomation
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            // TODO: 暂停功能
             this.source = new CancellationTokenSource();
             this.token = this.source.Token;
             Task.Factory.StartNew(new Action(this.TaskAction), this.token);
