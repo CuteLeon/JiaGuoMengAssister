@@ -174,13 +174,12 @@ namespace JiaGuoMengAutomation
             {
                 this.State = States.Execute;
 
-                //ClickEmpty();
-                //ClickBuildings();
-                //ClickGifts();
-                Thread.Sleep(3000);
+                ClickEmpty();
+                ClickBuildings();
+                ClickGifts();
 
                 this.State = States.Wait;
-                Thread.Sleep(3000);
+                Thread.Sleep(10000);
 
                 if (this.token.IsCancellationRequested)
                 {
