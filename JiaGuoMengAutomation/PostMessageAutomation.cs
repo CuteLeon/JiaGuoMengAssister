@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
 using System.Runtime.InteropServices;
 
 namespace JiaGuoMengAutomation
@@ -21,6 +23,20 @@ namespace JiaGuoMengAutomation
 
             // TODO: 获取坐标（取金币的中心坐标）
             this.Locations = new LocationCollection();
+            this.Locations.BuildingsLocations = new List<Point>()
+            {
+                new Point(108, 273),
+                new Point(108, 363),
+                new Point(108, 455),
+
+                new Point(200, 227),
+                new Point(200, 319),
+                new Point(200, 408),
+
+                new Point(290, 182),
+                new Point(290, 272),
+                new Point(290, 364),
+            };
         }
 
         private IntPtr GetRenderWindowHandle()
