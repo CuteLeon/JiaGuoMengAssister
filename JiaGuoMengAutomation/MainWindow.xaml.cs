@@ -7,6 +7,10 @@ using System.Windows;
 
 namespace JiaGuoMengAutomation
 {
+    // TODO: 热键开关
+    // TODO: 测试 Debug附加调试器|Debug未附加调试器|Release 模式下能否自动收集供货
+    // TODO: 优化收集供货的效率
+
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
@@ -111,7 +115,7 @@ namespace JiaGuoMengAutomation
             this.InitializeComponent();
         }
 
-        private static void ClickBuildings()
+        private void ClickBuildings()
         {
             foreach (Point building in BuildingLocations)
             {
@@ -121,13 +125,19 @@ namespace JiaGuoMengAutomation
             }
         }
 
-        private static void ClickGifts()
+        private void ClickGifts()
         {
             const int time = 100;
             foreach (Point gift in giftLocations)
             {
                 foreach (Point building in BuildingLocations)
                 {
+                    // 及时退出
+                    if (this.token.IsCancellationRequested)
+                    {
+                        return;
+                    }
+
                     for (int index = 0; index < 3; index++)
                     {
                         mouse_event((int)(MouseEventFlags.Move | MouseEventFlags.Absolute), (int)(gift.X * 48), (int)(gift.Y * 85), 0, IntPtr.Zero);
@@ -185,8 +195,13 @@ namespace JiaGuoMengAutomation
                 this.State = States.Execute;
 
                 ClickEmpty();
-                ClickBuildings();
-                ClickGifts();
+                this.ClickBuildings();
+                this.ClickGifts();
+
+                if (this.token.IsCancellationRequested)
+                {
+                    return;
+                }
 
                 this.State = States.Wait;
                 Thread.Sleep(10000);
