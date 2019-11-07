@@ -32,8 +32,17 @@ namespace JiaGuoMengAutomation
 
         private IntPtr GetWindowHandle()
         {
-            int handle = FindWindowEx(0, 0, "BS2CHINAUI", "BlueStacks App Player");
-            return new IntPtr(handle);
+            int handle = 0;
+            int hostHandle;
+
+            do
+            {
+                handle = FindWindowEx(0, handle, "BS2CHINAUI", "BlueStacks App Player");
+                hostHandle = FindWindowEx(handle, 0, "BS2CHINAUI", "HOSTWND");
+            }
+            while (handle != 0 && hostHandle == 0);
+
+            return new IntPtr(hostHandle);
         }
 
         public override void MouseClick(int x, int y)
