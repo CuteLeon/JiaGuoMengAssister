@@ -7,7 +7,43 @@
         mc:Ignorable="d"
         WindowStyle="ToolWindow"
         Title="家国梦护肝助手" Height="160" Width="200">
+    <Window.Resources>
+        <Style TargetType="{x:Type Label}" x:Key="{x:Type Label}">
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+        <Style TargetType="{x:Type CheckBox}" x:Key="{x:Type CheckBox}">
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Content" Value="已关闭"/>
+            <Style.Triggers>
+                <Trigger Property="IsChecked" Value="True">
+                    <Setter Property="Content" Value="已开启"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
     <Grid>
-        <Button x:Name="MainButton" IsDefault="True" Content="收集" Click="Button_Click"></Button>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0" Grid.Column="0" Content="Render句柄" />
+        <TextBox Grid.Row="0" Grid.Column="1" x:Name="handleTextBox"/>
+
+        <Label Grid.Row="1" Grid.Column="0" Content="收集建筑" />
+        <CheckBox Grid.Row="1" Grid.Column="1" IsChecked="True" x:Name="buildingCheckBox"/>
+
+        <Label Grid.Row="2" Grid.Column="0" Content="收集供货" />
+        <CheckBox Grid.Row="2" Grid.Column="1" IsChecked="True" x:Name="giftCheckBox"/>
+
+        <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" x:Name="MainButton" IsDefault="True" Content="收集" Click="Button_Click"></Button>
     </Grid>
 </Window>

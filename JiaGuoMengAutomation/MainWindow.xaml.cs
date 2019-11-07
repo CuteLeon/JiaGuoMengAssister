@@ -13,6 +13,7 @@ namespace JiaGuoMengAutomation
         private long counter = 0;
         private CancellationTokenSource source;
         private CancellationToken token;
+        private MainWindowViewModel viewModel;
         private enum States
         {
             Idle = 0,
@@ -60,6 +61,9 @@ namespace JiaGuoMengAutomation
         {
             this.InitializeComponent();
 
+            //  TODO: 实现 MVVM 模式
+            this.viewModel = new MainWindowViewModel();
+            this.DataContext = this.viewModel;
             this.automation = new PostMessageAutomation();
         }
 
