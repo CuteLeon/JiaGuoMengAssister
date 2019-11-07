@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Runtime.InteropServices;
-using System.Text;
 
 namespace JiaGuoMengAutomation
 {
@@ -19,14 +18,16 @@ namespace JiaGuoMengAutomation
             this.TargetHandle = this.GetWindowHandle();
 
             // TODO: 读取分辨率，以 360x640 为准
-            this.Locations = new LocationCollection();
-            this.Locations.BuildingsLocations = new List<Point>()
+            this.Locations = new LocationCollection
             {
+                BuildingsLocations = new List<Point>()
+                {
+                },
+                GiftsLocations = new List<Point>()
+                {
+                },
+                EmptyLocation = new Point()
             };
-            this.Locations.GiftsLocations = new List<Point>()
-            {
-            };
-            this.Locations.EmptyLocation = new Point();
         }
 
         private IntPtr GetWindowHandle()
@@ -34,7 +35,6 @@ namespace JiaGuoMengAutomation
             int handle = FindWindowEx(0, 0, "BS2CHINAUI", "BlueStacks App Player");
             return new IntPtr(handle);
         }
-
 
         public override void MouseClick(int x, int y)
         {
