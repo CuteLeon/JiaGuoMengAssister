@@ -61,7 +61,7 @@ namespace JiaGuoMengAutomation
         {
             this.InitializeComponent();
 
-            this.automation = new PostMessageAutomation();
+            this.automation = new TXGameAutomation();
 
             this.viewModel = new MainWindowViewModel();
             this.viewModel.RenderHandle = this.automation.TargetHandle;

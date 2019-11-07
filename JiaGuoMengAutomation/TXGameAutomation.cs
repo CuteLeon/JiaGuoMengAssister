@@ -6,7 +6,7 @@ using System.Threading;
 
 namespace JiaGuoMengAutomation
 {
-    public class PostMessageAutomation : AutomationBase
+    public class TXGameAutomation : AutomationBase
     {
         [DllImport("user32", EntryPoint = "SendMessage", SetLastError = false, CharSet = CharSet.Auto, ExactSpelling = false, CallingConvention = CallingConvention.StdCall)]
         public static extern int SendMessage(IntPtr hWnd, int wMsg, int wParam, int lParam);
@@ -17,7 +17,7 @@ namespace JiaGuoMengAutomation
         [DllImport("user32", EntryPoint = "FindWindowEx", SetLastError = false, CharSet = CharSet.Unicode, ExactSpelling = false, CallingConvention = CallingConvention.StdCall)]
         public static extern int FindWindowEx(int hWnd1, int hWnd2, string lpsz1, string lpsz2);
 
-        public PostMessageAutomation()
+        public TXGameAutomation()
         {
             this.TargetHandle = this.GetRenderWindowHandle();
 
