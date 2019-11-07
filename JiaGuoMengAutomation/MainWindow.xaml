@@ -5,7 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:JiaGuoMengAutomation"
         mc:Ignorable="d"
-        WindowStyle="ToolWindow"
+        WindowStyle="SingleBorderWindow"
+        ResizeMode="CanMinimize"
+        ShowInTaskbar="True"
         Title="家国梦护肝助手" Height="160" Width="200">
     <Window.Resources>
         <Style TargetType="{x:Type Label}" x:Key="{x:Type Label}">
