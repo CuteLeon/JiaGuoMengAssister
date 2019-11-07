@@ -61,10 +61,11 @@ namespace JiaGuoMengAutomation
         {
             this.InitializeComponent();
 
-            //  TODO: 实现 MVVM 模式
-            this.viewModel = new MainWindowViewModel();
-            this.DataContext = this.viewModel;
             this.automation = new PostMessageAutomation();
+
+            this.viewModel = new MainWindowViewModel();
+            this.viewModel.RenderHandle = this.automation.TargetHandle;
+            this.DataContext = this.viewModel;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -101,8 +102,16 @@ namespace JiaGuoMengAutomation
                 this.State = States.Execute;
 
                 this.automation.ClickEmpty();
-                this.automation.ClickBuildings();
-                this.automation.DragGifts();
+
+                if (this.viewModel.CollectBuliding)
+                {
+                    this.automation.ClickBuildings();
+                }
+
+                if (this.viewModel.CollectGift)
+                {
+                    this.automation.DragGifts();
+                }
 
                 if (this.token.IsCancellationRequested)
                 {

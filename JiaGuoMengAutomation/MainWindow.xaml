@@ -36,13 +36,13 @@
         </Grid.RowDefinitions>
 
         <Label Grid.Row="0" Grid.Column="0" Content="Render句柄" />
-        <TextBox Grid.Row="0" Grid.Column="1" x:Name="handleTextBox"/>
+        <TextBox Grid.Row="0" Grid.Column="1" x:Name="handleTextBox" Margin="0 5 0 5" FontSize="14" IsReadOnly="True" Text="{Binding RenderHandle, Mode=OneWay}"/>
 
         <Label Grid.Row="1" Grid.Column="0" Content="收集建筑" />
-        <CheckBox Grid.Row="1" Grid.Column="1" IsChecked="True" x:Name="buildingCheckBox"/>
+        <CheckBox Grid.Row="1" Grid.Column="1" x:Name="buildingCheckBox" IsChecked="{Binding CollectBuliding}"/>
 
         <Label Grid.Row="2" Grid.Column="0" Content="收集供货" />
-        <CheckBox Grid.Row="2" Grid.Column="1" IsChecked="True" x:Name="giftCheckBox"/>
+        <CheckBox Grid.Row="2" Grid.Column="1" x:Name="giftCheckBox" IsChecked="{Binding CollectGift}"/>
 
         <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" x:Name="MainButton" IsDefault="True" Content="收集" Click="Button_Click"></Button>
     </Grid>
