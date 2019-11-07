@@ -102,6 +102,7 @@ namespace JiaGuoMengAutomation
                 this.State = States.Execute;
 
                 this.automation.ClickEmpty();
+                Thread.Sleep(1000);
 
                 if (this.viewModel.CollectBuliding)
                 {
